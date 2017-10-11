@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="en">    
+<head>
+    <meta charset="utf-8">
+    <title>HMS Research Computing Training: Python</title>
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme"> 
+    <!--Add support for earlier versions of Internet Explorer -->
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+
+</head>
+ 
+<body>
+    <!-- Wrap the entire slide show in a div using the "reveal" class. -->
+    <div class="reveal">
+        
+        <!-- Wrap all slides in a single "slides" class -->
+        <div class="slides">
+ 
+            <!-- ALL SLIDES GO HERE -->
+            <!-- Each section element contains an individual slide -->
+            <!--slide 1-->
+            <section>
+                <h1>Python: A Primer</h1>
+                <p>A HMS Research Computing Training Session</p>
+                <small>
+                    <p>Alex Truong</p>
+                    <p>alex_truong@hms.harvard.edu</p>
+                    <a href="https://rc.hms.harvard.edu/" target="_blank">https://rc.hms.harvard.edu/</a>
+                </small>
+                
+            </section>
+
+            <!--slide 2 stack-->
+            <section>
+                <!--level 1-->
+                <section>
+                    <h2>Introduction</h2>
+                    <p>Why Python?</p>
+                </section>
+                <!--level 2-->
+                <section>
+                    <h3>Python is...</h3>
+                    <small>
+                    <p>simple - resembles plain English</p>
+                    <p>easy - no need to declare (in most cases), memory management</p>
+                    <p>clean - whitespace-formatted for visibility</p>
+                    <p>interpreted - good for developing, bad for performance (more on this later)</p>
+                    </small>
+                </section>
+
+                <!--level 3-->
+                <section>
+                    <table>
+                        <tr>
+                            <th>Interpreted</th>
+                            <th>Compiled</th>
+                        </tr>
+                        <tr>
+                            <td>Rapid prototyping</td>
+                            <td>Faster Performance</td>
+                        </tr>
+                        <tr>
+                            <td>Requires interpreter</td>
+                            <td>Requires compiler (GCC, etc.)</td>
+                        </tr>
+                        <tr>
+                            <td>Dynamic typing (sort of)</td>
+                            <td>Static typing</td>
+                        </tr>
+                        <tr>
+                            <td>Code-level optimization</td>
+                            <td>Code- and Compiler-level optimization</td>
+                        </tr>
+                    </table>
+                </section>
+            </section>
+
+            <!--slide 3 stack-->
+            <section>
+                <!--level 1-->
+                <section>
+                    <h1>Accessing Python on O2</h1>
+                </section>
+
+                <!--level 2-->
+                <section>
+                    <h3>Logging into O2</h3>
+                    <p>Open a terminal and ssh into o2.med.harvard.edu</p>
+                    <pre><code>$ ssh rc_training01@o2.med.harvard.edu
+rc_training01@o2.med.harvard.edu's password: 
+
+(snip)
+
+rc_training01@login01:~$</code></pre>
+                </section>
+
+                <!--level 3-->
+                <section>
+                    <h3>Accessing Python on O2</h3>
+                    <pre><code>$ module avail python
+No modules found!
+Use "module spider" to find all possible modules.
+Use "module keyword key1 key2 ..." to search for all possible modules matching
+any of the "keys".
+
+$ module spider python
+(snip)
+   Versions:
+      python/2.7.12
+      python/3.6.0
+(snip)
+
+$ module spider python/2.7.12
+(snip)
+You will need to load all module(s) on any one of the lines below before the "python/2.7.12" module is available to load.
+
+      gcc/6.2.0
+(snip)
+
+$ module load gcc/6.2.0 python/2.7.12
+
+$ which python
+/n/app/python/2.7.12/bin/python
+
+$ python
+Python 2.7.12 (default, Sep 27 2017, 13:48:19)
+[GCC 6.2.0] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>></code></pre>
+                <p>Today's course will use 2.7.12.</p>
+                </section>
+
+                <!--level 4-->
+                <section>
+                    <h3>Alternately, virtual environment:</h3>
+                    <pre><code>$ module load gcc/6.2.0 python/2.7.6
+$ which virtualenv
+/n/app/python/2.7.12/bin/virtualenv
+$ virtualenv nameofenv --system-site-packages
+New python executable in nameofenv/bin/python
+Installing setuptools, pip, wheel...done.
+$ source nameofenv/bin/activate
+(nameofenv)$ which python
+~/nameofenv/bin/python</code></pre>
+                    <p>To deactivate:</p>
+                    <pre><code>(nameofenv)$ deactivate
+$</code></pre>
+                </section>
+
+                <!--level 5-->
+                <section>
+                    <h3>Why virtual environment?</h3>
+                    <p>Python has modules. if you want to install your own, you need a virtual environment.</p>
+                    <p>The version on Orchestra has a certain number of builtin modules; the <code>--system-site-packages</code> flag allows your virtual environment to inherit those packages so you don't have to reinstall them yourself.</p>
+                    <p>For more information, you can visit our <a href="https://wiki.med.harvard.edu/Orchestra/PersonalPythonPackages" target="_blank">Personal Python Packages wiki page</a>.</p>
+                </section>
+
+                <!--level 6-->
+                <section>
+                    <h3>Installing Python modules</h3>
+                    <p>To install modules, generally use <code>pip</code> or <code>easy-install</code> (we recommend <code>pip</code>): <pre><code>(nameofenv)$ pip install packagename</code></pre>If that doesn't work (e.g. you've downloaded the archive manually), follow the instructions in the provided README file, but it'll go something like <pre><code>(nameofenv)$ python setup.py install</code></pre> (some will have you use <code>build</code> before <code>install</code>). Make sure you read the (hopefully provided) instructions when installing modules manually.</p>
+                </section>
+
+                <!--level 7-->
+                <section>
+                    <h3>Viewing modules</h3>
+                    <p>to see which external modules have been installed/compatible with the package installer (<code>pip</code>):</p>
+                    <pre><code>$ pip freeze
+bx-python==0.7.3
+cycler==0.10.0
+funcsigs==1.0.2
+matplotlib==1.5.3
+.
+.
+.</code></pre>
+                </section>
+
+                <!--level 8-->
+                <section>
+                    <h3>Viewing modules cont.</h3>
+                    <p>To see ALL modules available on your Python build, type either of:</p>
+                    <pre><code>$ python -c "help('modules')"</code></pre>
+                    <p>and</p>
+                    <pre><code>$ python
+Python 2.7.12 (default, Sep 27 2017, 13:48:19)
+[GCC 6.2.0] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> help('modules')</code></pre>
+                </section>
+
+                <!--level 9-->
+                <section>
+                    <h3> Viewing modules cont.</h3>
+                    <p>and it will output something like:</p>
+                    <pre><code>Please wait a moment while I gather a list of all available modules...
+
+(there might be some warnings here...)
+
+276-pkg_graph       bisect              keyword             sha
+BaseHTTPServer      blah                lib2to3             shelve
+Bastion             brainteaser         linecache           shlex
+CDROM               bsddb               linuxaudiodev       shutil
+.
+.
+.</code></pre>
+                </section>
+
+            </section>
+
+            <!--Slide 4 stack-->
+            <section>
+                <!--level 1-->
+                <section>
+                    <h1>Let's Learn Python!</h1>
+                </section>
+
+                <!--level 2-->
+                <section>
+                    <h3>Syntax</h3>
+                    <p>Statements are terminated by newlines (e.g. enter key)</p>
+                    <p>Examples:</p>
+                    <pre><code>>>> a = 1
+>>> print "hello world"
+hello world</code></pre>
+                </section>
+
+                <!--level 3-->
+                <section>
+                <h3>Nuances: Quotations</h3>
+                <p>In general, double and single quotes are interchangeable, both for printing and argument passing:</p>
+                <pre><code>>>> print "hello world"
+hello world
+>>> print 'hello world'
+hello world
+
+>>> str = 'abcdefg'
+>>> str1 = "abcdefg"
+>>> str == str1
+True</code></pre>
+                </section>
+
+                <!--level 4-->
+                <section>
+                <h3>Nuances: Escaped characters</h3>
+                <p>Sometimes, you'll need to escape (backslash) certain special characters to get them to display correctly when printing. For example, if you want to preserve double quotations in your string:</p>
+                <pre><code>>>> print ""hello world""
+  File "<stdin>", line 1
+    print ""hello world""
+                ^
+SyntaxError: invalid syntax
+>>> print "\"hello world\""
+"hello world"</code></pre>
+                <p> A list of escape characters can be found at the <a href="https://docs.python.org/2/reference/lexical_analysis.html#string-literals" target="_blank">Python documentation</a> and elsewhere on the internet.</p>
+                </section>
+
+                <!--level 5-->
+                <section>
+                <h3>Comments</h3>
+                <p>Comments are used to make code more legible. In python, they are denoted with the octothorpe:</p>
+                <pre><code>#!/usr/bin/env python
+...
+# do stuff here
+...</code></pre>
+                <p>Multi-line comments can either be manually be broken down, or held in a docstring with triple quotes:</p>
+                <pre><code>"""
+this is a
+multi-line comment
+"""</code></pre>
+                <p> We'll revisit the <code>#!</code> line in a little bit.</p>
+                </section>
+
+                <!--
+                it denotes how the program should be run. Perl and other programs that use interpreted languages use this shebang, including shell scripts. Using <code>/usr/bin/env</code> is more portable than <code>/usr/bin</code>, as you can choose your version to use.</p>
+                -->
+
+            </section>
+
+            <!--Slide 5 stack-->
+            <section>
+                <!--level 1-->
+                <section>
+                    <h2>Basic Features</h2>
+                    <p>Data structures, looping, etc.</p>
+                </section>
+
+                <!--level 2-->
+                <section>
+                    <h3>Data types</h3>
+                    <p>Python is dynamically typed; there is no need to declare (e.g. <code>int n = num</code>). You can also reassign:</p>
+                    <pre><code>>>> number = 1
+>>> number
+1
+>>> number = 2
+>>> number
+2
+>>> str = 'abc'
+>>> str
+'abc'
+>>> str = 'def'
+>>> str
+'def'
+>>> str = 1
+>>> str
+1</code></pre>
+                </section>
+
+                <!--level 3-->
+                <section>
+                    <h3>Data types, an aside</h3>
+                    <p>However, strings (and some other stuff like tuples) are not <i>mutable</i>; you cannot modify its content. When you reassign the variable as seen previously, you're actually generating a new object. You can't modify the original object:</p>
+                    <pre><code>>>> s = "abc"
+>>>id(s)
+4702124
+>>> s[0] 
+'a'
+>>> s[0] = "o"
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'str' object does not support item assignment</code></pre>
+                    <p>The above example was shamelessly lifted off <a href="http://stackoverflow.com/questions/8056130/immutable-vs-mutable-types-python" target="_blank">Stack Overflow</a>.</p>
+                </section>
+
+                <!--level 4-->
+                <section>
+                    <h3>Back to data types</h3>
+                    <p>Like most languages, Python has higher level data structures. Of note are lists (arrays) and dictionaries. Relatedly, there are also tuples and sets. Each structure fills different niches.</p>
+                </section>
+
+                <!--level 5-->
+                <section>
+                    <h3>Lists</h3>
+                    <p>Lists are the most versatile; they are the effective equivalent of arrays in other languages. They are ordered, and you can fetch specific indices. You can mix and match types, have duplicates, nest lists, etc. To generate a list:</p>
+                    <pre><code>>>> lst = [] #initialize a list of indeterminate size
+>>> lst.append('a')
+>>> lst
+['a']
+>>>lst.extend(['b', 'c'])
+>>>lst
+['a', 'b', 'c']
+
+>>> lst2 = [None]*5 #initialize a list of predetermined size (an array)
+>>> lst2
+[None, None, None, None, None]
+>>> lst2[1] = 'foo'
+>>>lst2[1]
+'foo'
+>>> lst2
+[None, 'foo', None, None, None]</code></pre>
+                </section>
+
+                <!--level 6-->
+                <section>
+                    <h3>Sets</h3>
+                    <p>Sets are lists that do not allow duplicates. Sets are useful if you need to take unions, intersections, etc. To generate sets:</p>
+                    <pre><code>>>> st = set(lst)
+>>> st
+set(['a', 'c', 'b'])
+
+>>> lst3 = [1, 1, 2, 3, 4, 4]
+>>> st2 = set(lst3)
+>>> st2
+set([1, 2, 3, 4])
+
+>>> st3 = {1, 2, 3}
+>>> st3
+set([1, 2, 3])</code></pre>
+                </section>
+
+                <!--level 7-->
+                <section>
+                    <h3>Sample set operations</h3>
+                    <p>Here are some elementary operations you can perform with sets:</p>
+                    <pre><code>>>> set1 = {1, 2, 3}
+>>> set2 = {3, 4, 5}
+>>> set1 | set2        # union
+set([1, 2, 3, 4, 5])
+>>> set1 & set2        # intersection
+set([3])
+>>> set1 - set2        # set difference
+set([1, 2])
+>>> set2 - set1
+set([4, 5])
+>>> set1 ^ set2        # symmetric difference
+set([1, 2, 4, 5])
+>>> set2 ^ set1
+set([1, 2, 4, 5])</code></pre>
+                <p>More information can be found in the <a href="https://docs.python.org/2/library/sets.html" target="_blank">documentation</a>.</p>
+                </section>
+
+                <!--level 8-->
+                <section>
+                    <h3>Tuples</h3>
+                    <p> Tuples are lists, but immutable. Once created, they cannot be modified. If you know the size of your data structure, tuples are preferred over lists because Python will know exactly how much memory to allocate. To create tuples:</p>
+                    <pre><code>>>> empty_tuple = ()
+>>> empty_tuple
+()
+>>> one_element = 1,
+>>> one_element
+(1,)
+>>> mixed_tuple = (1, 'a', [1, 'a'])
+>>> mixed_tuple
+(1, 'a', [1, 'a'])
+>>> lst = [1, 2, 3]
+>>> tuple_from_list = tuple(lst)
+>>> tuple_from_list
+(1, 2, 3)</code></pre>
+                </section>
+
+                <!--level 9-->
+                <section>
+                    <h3>Dictionaries</h3>
+                    <p>Dictionaries are associative collections (maps). They are composed of key:value pairs (most of the time). To create a dictionary:</p>
+                    <pre><code>>>> empty_dict = {}    # careful not to confuse this with empty sets; to initialize an empty set, use set()
+>>> empty_dict
+{}
+>>> dict1 = {1: 'a', 2: 'b', 3: 'c'}
+>>> dict1
+{1: 'a', 2: 'b', 3: 'c'}
+>>> dict2 = dict([(1, 'a'), (2, 'b'), (3, 'c')])
+>>> dict2
+{1: 'a', 2: 'b', 3: 'c'}
+>>> dict3 = dict(a=1, b=2, c=3)     # only works if keys are strings
+>>> dict3
+{'a': 1, 'c': 3, 'b': 2}
+>>> dict4 = dict(1=a, 2=b, 3=c)
+  File "<stdin>", line 1
+SyntaxError: keyword can't be an expression</code></pre>
+                </section>
+            </section>
+
+            <!--slide 6 stack -->
+            <section>
+                <!--level 1-->
+                <section>
+                    <h3>Basic data structure manipulations</h3>
+                    <p>lists are zero-indexed (count from 0), and you can reference positions like so:</p>
+                    <pre><code>>>> lst = [1, 2, 3, 4, 5]
+>>> lst[1]
+2
+>>> lst[1:]     # sublist from second entry to end
+[2, 3, 4, 5]
+>>> lst[1:3]    # note that the fourth element is omitted; when end indices are specified, Python stops BEFORE they are reached
+[2, 3]
+>>> lst[:3]     # sublist from beginning to fourth entry
+[1, 2, 3]
+>>> lst[1::2]  # sublist from second to end, every other element
+[2, 4]
+>>> lst[-1]     # last entry (reverse indexing)
+5
+>>> lst2 = [1, 2, 3, [4, 5]]    # nested list
+>>> lst2[3][1]  # specify all relevant indices from outside in
+5</code></pre>
+                </section>
+
+                <!--level 2-->
+                <section>
+                    <h3>Basic data structure manipulations cont.</h3>
+                    <p>Dictionaries don't have indices to reference, but they do have keys and values. To interact with dictionaries:</p>
+                    <pre><code>>>> dict1 = {1: 'a', 2: 'b', 3: 'c'}
+>>> dict1[1]
+'a'
+>>> dict1.keys()
+[1, 2, 3]
+>>> dict1.values()
+['a', 'b', 'c']</code></pre>
+                </section>
+
+                <!--level 3-->
+                <section>
+                <p>There's a lot more you can do with these data structures, but they're beyond the scope of this course (i.e. fetching keys from values, comprehensions). They'll be demonstrated at the end if there's time.</p>
+                </section>
+            </section>
+
+            <!--slide 7 stack-->
+            <section>
+                <!--level 1-->
+                <section>
+                    <h3>Flow Control</h3>
+                    <p>for, while, if/else</p>
+                </section>
+
+                <!--level 2-->
+                <section>
+                    <h3>For loops</h3>
+                    <p>For loops are very straightforward to implement, if a little obfuscated. To iterate over a list:</p>
+                    <pre><code>>>> things = ['apple', 'banana', 'cherry']
+>>> for thing in things:
+...     print thing
+...
+apple
+banana
+cherry
+>>></code></pre>
+                </section>
+
+                <!--level 3-->
+                <section>
+                    <p>This will go through every item in your list (or tuple or whatever) in order. If you also wanted to fetch indices, you'd use:</p>
+                    <pre><code>>>> for idx, thing in enumerate(things):
+...     print idx, thing
+...
+0 apple
+1 banana
+2 cherry
+>>></code></pre>
+                    <p>The <code>enumerate()</code> function is actually an <i>iterator</i> that spits out a tuple consisting of (index, value) and assigns each to idx, name. This is called a <b>named tuple</b>.</p>
+                </section>
+
+                <!--level 4-->
+                <section>
+                    <p>The <code>for <i>a</i> in <i>b</i> </code> structure can be replaced with any generic construct (within reason). For a generic loop, you can do something like:</p>
+                    <pre><code>>>>for i in range(5):
+...     print i
+...
+0
+1
+2
+3
+4</code></pre>
+                </section>
+
+                <!--level 5-->
+                <section>
+                    <h3>While loops</h3>
+                    <p>Similar in function to <code>for</code> loops, while loops are used to iterate, and are useful if you don't know how long to iterate for (e.g. searching for convergence, etc.). A generic while loop looks like this:</p>
+                    <pre><code>>>>toggle = 'true'
+>>> while toggle == 'true':
+...     toggle = 'false'
+...     print toggle
+...
+false</code></pre>
+                    <p>A very simplistic example, but the above while loop runs one iteration, then exits because <code>toggle</code> is no longer <code>true</code>.</p>
+                </section>
+
+                <!--level 6-->
+                <section>
+                    <h3>If/elif/else</h3>
+                    <p><code>if/else</code> statements are useful when you need to handle different cases in your workflow. A generic if/elif/else statement structure:</p>
+                    <pre><code># take some input (let's say, a number)
+if input == 0:       #if input is zero
+    print 'zero'
+elif input % 2 == 0: #if input is otherwise even
+    print 'even'
+else:                #if input is odd
+    print 'odd'</code></pre>
+                <p>You may use as many <code>elif</code>s as you require to solve your problem.
+                </section>
+
+                <!--level 7-->
+                <section>
+                    <h3>An aside: try/except</h3>
+                    <p>Python has the interesting distinction of relatively lightweight exception handling. Exceptions are only computationally expensive if they trigger. For more information, <a href="https://www.jeffknupp.com/blog/2013/02/06/write-cleaner-python-use-exceptions/" target="_blank">this page has a good analysis of if/else versus try/except</a>.</p>
+                </section>
+            </section>
+
+            <!--slide 8 stack-->
+            <section>
+                <!--level 1-->
+                <section>
+                    <h2>A few pertinent modules</h2>
+                </section>
+
+                <!--level 2-->
+                <section>
+                    <h3>SciPy</h3>
+                    <p>SciPy has a bunch of interesting functions that automate various aspects of scientific computing, like statistics and higher-level mathematics. Most of these are callable in one line. Briefly, this is how to use the SciPy module. You will need to consult the <a href="http://docs.scipy.org/doc/" target="_blank">documentation</a> for complex usage.</p>
+                    <pre><code>>>> from scipy import constants        # `from scipy import *` will not behave as expected
+>>> constants.c                        # speed of light
+299792458.0
+>>> from scipy.stats import norm
+>>> norm.cdf(5, 0, 3)                  # P(x<5) if X~N(0,3)
+0.9522096477271853</code></pre>
+                </section>
+
+                <!--level 3-->
+                <section>
+                    <h3>NumPy</h3>
+                    <p>Numpy is the go-to module if you need to perform complex arithmetic or do matrix operations (manipulate data frames. It is much more efficient (and easy to use) than using system Python utilities. An example:</p>
+                    <pre><code>>>> import numpy as np       # the general way; using `as` allows you to set an alias (if the name is too long to type)
+>>> cvalues = [25.3, 24.8, 26.9, 23.9]    # a typical python list of Celcius values
+>>> C = np.array(cvalues)       # create a numpy array
+>>> print C
+[ 25.3  24.8  26.9  23.9]       # note that they look identical
+>>> print(C * 9 / 5 + 32)       # convert to Fahrenheit using scalar multiplication
+[ 77.54  76.64  80.42  75.02]
+>>> fvalues = [x*9/5 + 32 for x in cvalues]    # with a typical list, you need to loop over it and compute element-wise instead
+>>> print fvalues
+[77.54, 76.64, 80.42, 75.02]       # same result, less efficient/readable</code></pre>
+                    </section>
+
+                    <!--level 4-->
+                    <section>
+                    <h3>More NumPy</h3>
+                    <p>A brief look at arrays: NumPy data structures</p>    
+                    <pre><code>>>> nested_list = [[3.4, 8.7, 9.9], [1.1, -7.8, -0.7], [4.1, 12.3, 4.8]]      # a python nested list
+>>> nested_list
+[[3.4, 8.7, 9.9], [1.1, -7.8, -0.7], [4.1, 12.3, 4.8]]
+>>> A = np.array ([ [3.4, 8.7, 9.9], [1.1, -7.8, -0.7], [4.1, 12.3, 4.8]])    # a numpy array (matrix)
+>>> A
+array([[  3.4   8.7   9.9]
+ [  1.1  -7.8  -0.7]
+ [  4.1  12.3   4.8]])</code></pre>
+                    <p>Note the formatting of the print. This is indicative of the logic and illustrates why numpy is the preferred implementation of Python matrix operations. The SciPy documentation linked previously also includes NumPy documentation.</p>
+                    </section>
+
+                    <!--level 5-->
+                    <section>
+                        <h3>Matplotlib</h3>
+                        <p>Matplotlib is a basic plotting software. You can generate plots in real time (X11) or create them and write to files to view later. There is also a degree of customization afforded in plots. The below example covers the easiest example:</p>
+                        <pre><code>>>> import matplotlib.pyplot as plt
+>>> plt.plot([1,2,3,4])
+[(some memory address)]
+>>> plt.ylabel('some numbers')
+(another memory address)
+>>> plt.show()</code></pre>
+                        <p>You can save the image using something like <code>plt.savefig('image.png')</code>.</p>
+                        <p>See the <a href="http://matplotlib.org/contents.html" target="_blank">matplotlib documentation</a> for more information.</p>
+                    </section>
+                </section>
+            </section>
+
+            <!--slide 9 stack-->
+            <section>
+                <h2>Object Oriented Python</h2>
+                <p>PSA: Python can also implement classes.</p>
+                <p>Using classes over functions in Python is generally to the user's discretion, but standard common sense and logic applies as usual. If your program expands to the point where you think an object is more effective than functions, then feel free to implement it.</p>
+                <p>No instruction on classes will be given here, as it is beyond the scope of the course. For more information, you can consult an <a href="https://www.jeffknupp.com/blog/2014/06/18/improve-your-python-python-classes-and-object-oriented-programming/" target="_blank">in-depth article like this</a> or look straight at the <a href="https://docs.python.org/2/tutorial/classes.html" target="_blank">Python documentation</a>.</p>
+            </section>
+
+            <!--slide 10 stack-->
+            <section>
+                <!--level 1-->
+                <section>
+                    <h1>A brief Introduction to Scripting</h1>
+                </section>
+
+                <!--level 2-->
+                <section>
+                    <h3>Up until now, we've mostly been playing inside the interpreter. Here, we'll briefly go over what is required to write a proper Python program.</h3>
+                </section>
+
+                <!--level 3-->
+                <section>
+                    <h3>To start:</h3>
+                    <p>Strictly speaking, all you need for a Python program is a text file with the shebang line on top. Recall:</p>
+                    <pre><code>#!/usr/bin/env python</code></pre>
+                    <p>This line indicates to the computer that this is a python program, and it should look in this location to execute. Similar shebangs may look like:</p>
+                    <pre><code>#!/usr/bin/python
+#!/bin/bash
+#!/usr/bin/perl
+etc.</code></pre>
+                    <p>The shebang is telling the computer to look in the specified directory for the proper method of execution.</p>
+                </section>
+
+                <!--level 4-->
+                <section>
+                    <h3>Why use <code>env</code>?</h3>
+                    <p><code>env</code> is used for portability. On *nix machines, there is a path <code>/usr/bin</code> where most system programs/binaries are installed. If you need to install multiple versions, this can be an issue. Which version of Python do you want to use?</p>
+                    <p>This is what <code>env</code> is for. It tells the computer to look at the current environment, and choose the Python that is currently in use. This is especially helpful on Orchestra, where we have multiple versions installed at the same time.</p>
+                </section>
+
+                <!--level 5-->
+                <section>
+                    <h3>A basic program</h3>
+                    <p>Once you've included the shebang, you can get right to it. Start typing lines just as you would in the interpreter, and once you execute your program, each line will resolve itself in order.</p>
+                    <pre><code>#!/usr/bin/env python
+
+print "hello world"</code></pre>
+                    <p>Type this into a text file, and save it as whatever, and include <code>.py</code> at the end for your own convenience.</p>
+                    <p>To execute this program, just type at the terminal:</p>
+                    <pre><code>$ python file.py</code></pre>
+                    <p>You've just written your first python program!</p>
+                </section>
+
+                <!--level 6-->
+                <section>
+                    <h3>Basic Structure</h3>
+                    <p>The previous program is not likely going to be your typical use case. More complex programs may use modules, functions, classes, etc.</p>
+                    <p>A typical program will have the following structure:</p>
+                    <pre><code>#!/usr/bin/env python
+
+# IMPORT EVERYTHING HERE
+
+# CREATE FUNCTIONS AND/OR CLASSES HERE
+
+def main():
+    # CODE THAT DOES NOT BELONG IN FUNCTIONS GOES HERE
+
+if __name__ == '__main__':
+    main()</code></pre>
+                </section>
+
+                <!--level 7-->
+                <section>
+                    <p>To extend the previous trivial example:</p>
+                    <pre><code>#!/usr/bin/env python
+
+# no modules were required, so none were imported
+
+# no functions were needed, so none were created
+
+def main():
+    print "hello world"
+
+if __name__ == '__main__':
+    main()</code></pre>
+                </section>
+
+                <!--level 8-->
+                <section>
+                    <h3>What are Functions?</h3>
+                    <p>Functions are typically used when you have repetitive code. Instead of pasting the code over and over, just put it in a function, and use ("call") it when needed. For example:</p>
+                    <pre><code>def do_thing():
+    print "hello world"
+    return</code></pre>
+                    <p>Then to reference it, just type elsewhere in your program:</p>
+                    <pre><code>do_thing()</code></pre>
+                    <p>and the program will execute the code within the <code>do_thing</code> function.</p>
+                </section>
+
+                <!--level 9-->
+                <section>
+                    <p>You can also make functions take arguments:</p>
+                    <pre><code>def do_thing(phrase):
+    print phrase
+    return
+
+...
+
+phrase = "hello world"
+do_thing(phrase)</code></pre>
+                </section>
+
+                <!--level 10-->
+                <section>
+                    <p>You can also assign values to variables with functions. To do this, make use of the <code>return</code> keyword. Note that previously, it has been naked, which means nothing is returned. Python is smart enough to know what you mean if you omit <code>return</code>, but it's always nice to include it for consistency.</p>
+                    <p>To extend the previous example:</p>
+                    <pre><code>def do_thing(phrase):
+    print phrase
+
+    new_phrase = "goodbye world"
+
+    return new_phrase
+
+...
+
+phrase = "hello world"
+
+phrase2 = do_thing(phrase)
+print phrase2</code></pre>
+                </section>
+
+                <!--level 11-->
+                <section>
+                    <p>Putting it all together:</p>
+                    <pre><code>#!/usr/bin/env python
+
+def do_thing(phrase):
+    """Transform the input phrase into a new phrase."""
+    print phrase
+
+    new_phrase = "goodbye world"
+
+    return new_phrase
+
+def main():
+    phrase = "hello world"
+
+    phrase2 = do_thing(phrase)
+
+    print phrase2
+
+if __name__ == '__main__':
+    main()</code></pre>
+                </section>
+            </section>
+
+            <!--slide 11 stack-->
+            <section>
+                <!--level 1-->
+                <section>
+                    <h1>Bonus Features!</h1>
+                </section>
+                
+                <!--level 2-->
+                <section>
+                    <h3>More than one way to skin a cat</h3>
+                    <p>There are multiple ways to accomplish things in Python; some are more "Pythonic" than others. A few examples:</p>
+                    <pre><code>>>> lst = [1, 2, 3, 4, 5]
+>>> lst2 = [0]*5
+>>> for idx, num in enumerate(lst): #loop to reassign - multiple lines
+...     lst2[idx] = num + 1
+...
+>>>lst2
+[2, 3, 4, 5, 6]
+
+>>> lst3 = [x + 1 for x in lst]     #list comprehension - one line
+>>> lst3
+[2, 3, 4, 5, 6]</code></pre>
+                    <p>As of 2.7, dictionary comprehensions are also possible.</p>
+                    <p>Generally, you'll end up using the first method you discover (e.g. via Stack Overflow, etc.).</p>
+                </section>
+
+                <!--level 3-->
+                <section>
+                    <p><code>lambda</code> is used if you have a simple function that only needs to be called once. Compare:</p>
+                    <pre><code>mult3 = filter(lambda x: x % 3 == 0, [1, 2, 3, 4, 5, 6, 7, 8, 9])</code></pre>
+                    <p>versus</p>
+                    <pre><code>def filterfunc(x):
+    return x % 3 == 0
+
+mult3 = filter(filterfunc, [1, 2, 3, 4, 5, 6, 7, 8, 9])</code></pre>
+                    <p>versus</p>
+                    <pre><code>mult3 = [x for x in [1, 2, 3, 4, 5, 6, 7, 8, 9] if x % 3 == 0]</code></pre>
+                    <p>This example was shamelessly stolen from <a href="http://stackoverflow.com/questions/890128/why-python-lambdas-are-useful" target="_blank">Stack Overflow</a>.</p>
+                </section>
+
+                <!--level 4-->
+                <section>
+                    <h3>Python and LSF</h3>
+                    <p>The original LSF API is written in C, but the internet has ported it to Python (in various states of disarray). <a href="https://github.com/gmccance/pylsf" target="_blank">This is the one I'm using</a>.</p>
+                    <p>IBM has since made an official one available, but it does not correspond to the version of LSF currently on Orchestra.</p>
+                </section>
+
+                <!--level 5-->
+                <section>
+                    <h3>Python and LSF</h3>
+                    <p>The API is useful if you need higher control over your job submissions and/or workflow.</p>
+                    <pre><code>>>> from pylsf import *           #import entire pylsf module
+>>> a = lsb_init('')              # start LSF daemon
+>>> d = lsb_openjobinfo()         # form connection and acquire all job information
+>>> for x in range(d):            # iterate
+...     job = lsb_readjobinfo(x)  # acquire job information about current job
+...     if job[1] == 'at237':
+...         print job
+...</code></pre>
+                    <p>For more information, refer to the pylsf.pyx file.</p>
+                </section>
+            </section>
+
+            <!--slide 12 stack-->
+                <section>
+                    <h2>Final Thoughts: Compatibility</h2>
+                    <p>Today's course was taught on 2.7.6.</p>
+                    <p>We have many versions of Python available, and not all are created equal. Most distinct is the difference between 2.x and 3.x; there are several syntax changes that will be required to use version 3.x.</p>
+                    <p>For more information, look at this trusty <a href= "http://python-future.org/compatible_idioms.html">2.x to 3.x compatibility cheat sheet</a>.</p>
+                </section>
+
+            <!--slide 13 stack-->
+            <section>
+                <p>That's it! Thanks for coming! Time permitting, more will be demonstrated in the terminal.</p>
+                <p>If you have any questions, feel free to email me directly at alex_truong@hms.harvard.edu or visit <a href="https://rc.hms.harvard.edu/#support" target="_blank">our website</a> to submit a ticket. We also do consulting!</p>
+                <p>Please take the time to fill out <a href="http://hmsrc.me/intropython-survey329" target="_blank">this survey</a> so we can improve this course in the future!</p>
+            </section>
+ 
+        </div>
+
+
+    </div>
+    
+    <!-- footer bar on first page only (see last script tag below for toggle) -->
+    <!--
+    <div class='footer'>
+        HMS Research Computing
+    </div>
+    -->
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+ 
+    <script>
+        // Required, even if empty.
+        Reveal.initialize({
+        });
+    </script>
+    <!--
+    <script>
+        // displayed upon load, hides when slide changes
+        Reveal.addEventListener('slidechanged', function(event) {
+            document.querySelector('.reveal .footer').style.display = 'none';
+        });
+    </script>
+    -->
+
+</body>
+</html>
