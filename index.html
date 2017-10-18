@@ -163,8 +163,8 @@ $</code></pre>
                 <section>
                     <h3>Why virtual environment?</h3>
                     <p>Python has modules. if you want to install your own, you need a virtual environment.</p>
-                    <p>The version on Orchestra has a certain number of builtin modules; the <code>--system-site-packages</code> flag allows your virtual environment to inherit those packages so you don't have to reinstall them yourself.</p>
-                    <p>For more information, you can visit our <a href="https://wiki.med.harvard.edu/Orchestra/PersonalPythonPackages" target="_blank">Personal Python Packages wiki page</a>.</p>
+                    <p>The version on O2 has a certain number of builtin modules; the <code>--system-site-packages</code> flag allows your virtual environment to inherit those packages so you don't have to reinstall them yourself.</p>
+                    <p>For more information, you can visit our <a href="https://wiki.rc.hms.harvard.edu/display/O2/Personal+Python+Packages" target="_blank">Personal Python Packages wiki page</a>.</p>
                 </section>
 
                 <!--level 6-->
@@ -321,8 +321,6 @@ multi-line comment
                     <h3>Data types, an aside</h3>
                     <p>However, strings (and some other stuff like tuples) are not <i>mutable</i>; you cannot modify its content. When you reassign the variable as seen previously, you're actually generating a new object. You can't modify the original object:</p>
                     <pre><code>>>> s = "abc"
->>>id(s)
-4702124
 >>> s[0] 
 'a'
 >>> s[0] = "o"
