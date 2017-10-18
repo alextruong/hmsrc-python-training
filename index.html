@@ -772,14 +772,12 @@ print phrase2</code></pre>
 def do_thing(phrase):
     """Transform the input phrase into a new phrase."""
     print phrase
-
     new_phrase = "goodbye world"
 
     return new_phrase
 
 def main():
     phrase = "hello world"
-
     phrase2 = do_thing(phrase)
 
     print phrase2
@@ -828,37 +826,15 @@ mult3 = filter(filterfunc, [1, 2, 3, 4, 5, 6, 7, 8, 9])</code></pre>
                     <pre><code>mult3 = [x for x in [1, 2, 3, 4, 5, 6, 7, 8, 9] if x % 3 == 0]</code></pre>
                     <p>This example was shamelessly stolen from <a href="http://stackoverflow.com/questions/890128/why-python-lambdas-are-useful" target="_blank">Stack Overflow</a>.</p>
                 </section>
-
-                <!--level 4-->
-                <section>
-                    <h3>Python and LSF</h3>
-                    <p>The original LSF API is written in C, but the internet has ported it to Python (in various states of disarray). <a href="https://github.com/gmccance/pylsf" target="_blank">This is the one I'm using</a>.</p>
-                    <p>IBM has since made an official one available, but it does not correspond to the version of LSF currently on Orchestra.</p>
-                </section>
-
-                <!--level 5-->
-                <section>
-                    <h3>Python and LSF</h3>
-                    <p>The API is useful if you need higher control over your job submissions and/or workflow.</p>
-                    <pre><code>>>> from pylsf import *           #import entire pylsf module
->>> a = lsb_init('')              # start LSF daemon
->>> d = lsb_openjobinfo()         # form connection and acquire all job information
->>> for x in range(d):            # iterate
-...     job = lsb_readjobinfo(x)  # acquire job information about current job
-...     if job[1] == 'at237':
-...         print job
-...</code></pre>
-                    <p>For more information, refer to the pylsf.pyx file.</p>
-                </section>
             </section>
 
             <!--slide 12 stack-->
-                <section>
-                    <h2>Final Thoughts: Compatibility</h2>
-                    <p>Today's course was taught on 2.7.6.</p>
-                    <p>We have many versions of Python available, and not all are created equal. Most distinct is the difference between 2.x and 3.x; there are several syntax changes that will be required to use version 3.x.</p>
-                    <p>For more information, look at this trusty <a href= "http://python-future.org/compatible_idioms.html">2.x to 3.x compatibility cheat sheet</a>.</p>
-                </section>
+	    <section>
+	        <h2>Final Thoughts: Compatibility</h2>
+	        <p>Today's course was taught on 2.7.6.</p>
+	        <p>We have many versions of Python available, and not all are created equal. Most distinct is the difference between 2.x and 3.x; there are several syntax changes that will be required to use version 3.x.</p>
+		<p>For more information, look at this trusty <a href= "http://python-future.org/compatible_idioms.html">2.x to 3.x compatibility cheat sheet</a>.</p>
+	    </section>
 
             <!--slide 13 stack-->
             <section>
