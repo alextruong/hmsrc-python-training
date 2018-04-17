@@ -481,7 +481,7 @@ SyntaxError: keyword can't be an expression</code></pre>
 
                 <!--level 3-->
                 <section>
-                <p>There's a lot more you can do with these data structures, but they're beyond the scope of this course (i.e. fetching keys from values, comprehensions). They'll be demonstrated at the end if there's time.</p>
+                <p>There's a lot more you can do with these data structures. If you find yourself wondering if <i>x</i> data structure can do <i>y</i> thing, feel free to search for an answer. More often than not, there will be a solution!</p>
                 </section>
             </section>
 
@@ -537,13 +537,13 @@ cherry
                 <section>
                     <h3>While loops</h3>
                     <p>Similar in function to <code>for</code> loops, while loops are used to iterate, and are useful if you don't know how long to iterate for (e.g. searching for convergence, etc.). A generic while loop looks like this:</p>
-                    <pre><code>>>>toggle = 'true'
->>> while toggle == 'true':
-...     toggle = 'false'
+                    <pre><code>>>>toggle = True
+>>> while toggle == True:
+...     toggle = False
 ...     print toggle
 ...
-false</code></pre>
-                    <p>A very simplistic example, but the above while loop runs one iteration, then exits because <code>toggle</code> is no longer <code>true</code>.</p>
+False</code></pre>
+                    <p>A very simplistic example, but the above while loop runs one iteration, then exits because <code>toggle</code> is no longer <code>True</code>.</p>
                 </section>
 
                 <!--level 6-->
@@ -788,47 +788,6 @@ if __name__ == '__main__':
             </section>
 
             <!--slide 11 stack-->
-            <section>
-                <!--level 1-->
-                <section>
-                    <h1>Bonus Features!</h1>
-                </section>
-                
-                <!--level 2-->
-                <section>
-                    <h3>More than one way to skin a cat</h3>
-                    <p>There are multiple ways to accomplish things in Python; some are more "Pythonic" than others. A few examples:</p>
-                    <pre><code>>>> lst = [1, 2, 3, 4, 5]
->>> lst2 = [0]*5
->>> for idx, num in enumerate(lst): #loop to reassign - multiple lines
-...     lst2[idx] = num + 1
-...
->>>lst2
-[2, 3, 4, 5, 6]
-
->>> lst3 = [x + 1 for x in lst]     #list comprehension - one line
->>> lst3
-[2, 3, 4, 5, 6]</code></pre>
-                    <p>As of 2.7, dictionary comprehensions are also possible.</p>
-                    <p>Generally, you'll end up using the first method you discover (e.g. via Stack Overflow, etc.).</p>
-                </section>
-
-                <!--level 3-->
-                <section>
-                    <p><code>lambda</code> is used if you have a simple function that only needs to be called once. Compare:</p>
-                    <pre><code>mult3 = filter(lambda x: x % 3 == 0, [1, 2, 3, 4, 5, 6, 7, 8, 9])</code></pre>
-                    <p>versus</p>
-                    <pre><code>def filterfunc(x):
-    return x % 3 == 0
-
-mult3 = filter(filterfunc, [1, 2, 3, 4, 5, 6, 7, 8, 9])</code></pre>
-                    <p>versus</p>
-                    <pre><code>mult3 = [x for x in [1, 2, 3, 4, 5, 6, 7, 8, 9] if x % 3 == 0]</code></pre>
-                    <p>This example was shamelessly stolen from <a href="http://stackoverflow.com/questions/890128/why-python-lambdas-are-useful" target="_blank">Stack Overflow</a>.</p>
-                </section>
-            </section>
-
-            <!--slide 12 stack-->
 	    <section>
 	        <h2>Final Thoughts: Compatibility</h2>
 	        <p>Today's course was taught on 2.7.12.</p>
