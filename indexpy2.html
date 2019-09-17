@@ -120,44 +120,43 @@ $ module spider python
    Versions:
       python/2.7.12
       python/3.6.0
-      python/3.7.4
 (snip)</pre></code>
 		</section>
 
 		<!--level 4-->
 		<section>
 		    <h3>Accessing Python on O2 cont'd.</h3>
-		    <pre><code>$ module spider python/3.7.4
+		    <pre><code>$ module spider python/2.7.12
 (snip)
-You will need to load all module(s) on any one of the lines below before the "python/3.7.4" module is available to load.
+You will need to load all module(s) on any one of the lines below before the "python/2.7.12" module is available to load.
 
       gcc/6.2.0
 (snip)
 
-$ module load gcc/6.2.0 python/3.7.4
+$ module load gcc/6.2.0 python/2.7.12
 
 $ which python
-/n/app/python/3.7.4/bin/python
+/n/app/python/2.7.12/bin/python
 
-$ python3
-(default, Sep 11 2019, 11:24:51)
-[GCC 6.2.0] on linux
+$ python
+Python 2.7.12 (default, Sep 27 2017, 13:48:19)
+[GCC 6.2.0] on linux2
 Type "help", "copyright", "credits" or "license" for more information.
 >>></code></pre>
-                <p>Today's course will use 3.7.4.</p>
+                <p>Today's course will use 2.7.12.</p>
                 </section>
 
                 <!--level 5-->
                 <section>
                     <h3>Alternately, virtual environment:</h3>
-                    <pre><code>$ module load gcc/6.2.0 python/3.7.4
+                    <pre><code>$ module load gcc/6.2.0 python/2.7.12
 $ which virtualenv
-/n/app/python/3.7.4/bin/virtualenv
+/n/app/python/2.7.12/bin/virtualenv
 $ virtualenv nameofenv --system-site-packages
 New python executable in nameofenv/bin/python
 Installing setuptools, pip, wheel...done.
 $ source nameofenv/bin/activate
-(nameofenv)$ which python3
+(nameofenv)$ which python
 ~/nameofenv/bin/python</code></pre>
                     <p>To deactivate:</p>
                     <pre><code>(nameofenv)$ deactivate
@@ -196,9 +195,9 @@ matplotlib==1.5.3
                 <section>
                     <h3>Viewing modules cont.</h3>
                     <p>To see ALL modules available on your Python build, type either of:</p>
-                    <pre><code>$ python3 -c "help('modules')"</code></pre>
+                    <pre><code>$ python -c "help('modules')"</code></pre>
                     <p>and</p>
-                    <pre><code>$ python3
+                    <pre><code>$ python
 Python 2.7.12 (default, Sep 27 2017, 13:48:19)
 [GCC 6.2.0] on linux2
 Type "help", "copyright", "credits" or "license" for more information.
@@ -237,7 +236,7 @@ CDROM               bsddb               linuxaudiodev       shutil
                     <p>Statements are terminated by newlines (e.g. enter key)</p>
                     <p>Examples:</p>
                     <pre><code>>>> a = 1
->>> print("hello world")
+>>> print "hello world"
 hello world</code></pre>
                 </section>
 
@@ -245,9 +244,9 @@ hello world</code></pre>
                 <section>
                 <h3>Nuances: Quotations</h3>
                 <p>In general, double and single quotes are interchangeable, both for printing and argument passing:</p>
-                <pre><code>>>> print("hello world")
+                <pre><code>>>> print "hello world"
 hello world
->>> print('hello world')
+>>> print 'hello world'
 hello world
 
 >>> str = 'abcdefg'
@@ -260,21 +259,21 @@ True</code></pre>
                 <section>
                 <h3>Nuances: Escaped characters</h3>
                 <p>Sometimes, you'll need to escape (backslash) certain special characters to get them to display correctly when printing. For example, if you want to preserve double quotations in your string:</p>
-                <pre><code>>>> print(""hello world"")
+                <pre><code>>>> print ""hello world""
   File "<stdin>", line 1
     print ""hello world""
                 ^
 SyntaxError: invalid syntax
->>> print("\"hello world\"")
+>>> print "\"hello world\""
 "hello world"</code></pre>
-                <p> A list of escape characters can be found at the <a href="https://docs.python.org/3/reference/lexical_analysis.html#literals" target="_blank">Python documentation</a> and elsewhere on the internet.</p>
+                <p> A list of escape characters can be found at the <a href="https://docs.python.org/2/reference/lexical_analysis.html#string-literals" target="_blank">Python documentation</a> and elsewhere on the internet.</p>
                 </section>
 
                 <!--level 5-->
                 <section>
                 <h3>Comments</h3>
                 <p>Comments are used to make code more legible. In python, they are denoted with the octothorpe:</p>
-                <pre><code>#!/usr/bin/env python3
+                <pre><code>#!/usr/bin/env python
 ...
 # do stuff here
 ...</code></pre>
@@ -500,7 +499,7 @@ SyntaxError: keyword can't be an expression</code></pre>
                     <p>For loops are very straightforward to implement, if a little obfuscated. To iterate over a list:</p>
                     <pre><code>>>> things = ['apple', 'banana', 'cherry']
 >>> for thing in things:
-...     print(thing)
+...     print thing
 ...
 apple
 banana
@@ -512,7 +511,7 @@ cherry
                 <section>
                     <p>This will go through every item in your list (or tuple or whatever) in order. If you also wanted to fetch indices, you'd use:</p>
                     <pre><code>>>> for idx, thing in enumerate(things):
-...     print(idx, thing)
+...     print idx, thing
 ...
 0 apple
 1 banana
@@ -525,7 +524,7 @@ cherry
                 <section>
                     <p>The <code>for <i>a</i> in <i>b</i> </code> structure can be replaced with any generic construct (within reason). For a generic loop, you can do something like:</p>
                     <pre><code>>>>for i in range(5):
-...     print(i)
+...     print i
 ...
 0
 1
@@ -541,7 +540,7 @@ cherry
                     <pre><code>>>>toggle = True
 >>> while toggle == True:
 ...     toggle = False
-...     print(toggle)
+...     print toggle
 ...
 False</code></pre>
                     <p>A very simplistic example, but the above while loop runs one iteration, then exits because <code>toggle</code> is no longer <code>True</code>.</p>
@@ -553,11 +552,11 @@ False</code></pre>
                     <p><code>if/else</code> statements are useful when you need to handle different cases in your workflow. A generic if/elif/else statement structure:</p>
                     <pre><code># take some input (let's say, a number)
 if input == 0:       #if input is zero
-    print('zero')
+    print 'zero'
 elif input % 2 == 0: #if input is otherwise even
-    print('even')
+    print 'even'
 else:                #if input is odd
-    print ('odd')</code></pre>
+    print 'odd'</code></pre>
                 <p>You may use as many <code>elif</code>s as you require to solve your problem.
                 </section>
 
@@ -594,12 +593,12 @@ else:                #if input is odd
                     <pre><code>>>> import numpy as np       # the general way; using `as` allows you to set an alias (if the name is too long to type)
 >>> cvalues = [25.3, 24.8, 26.9, 23.9]    # a typical python list of Celcius values
 >>> C = np.array(cvalues)       # create a numpy array
->>> print(C)
+>>> print C
 [ 25.3  24.8  26.9  23.9]       # note that they look identical
 >>> print(C * 9 / 5 + 32)       # convert to Fahrenheit using scalar multiplication
 [ 77.54  76.64  80.42  75.02]
 >>> fvalues = [x*9/5 + 32 for x in cvalues]    # with a typical list, you need to loop over it and compute element-wise instead
->>> print(fvalues)
+>>> print fvalues
 [77.54, 76.64, 80.42, 75.02]       # same result, less efficient/readable</code></pre>
                     </section>
 
@@ -658,7 +657,7 @@ array([[  3.4   8.7   9.9]
                 <section>
                     <h3>To start:</h3>
                     <p>Strictly speaking, all you need for a Python program is a text file with the shebang line on top. Recall:</p>
-                    <pre><code>#!/usr/bin/env python3</code></pre>
+                    <pre><code>#!/usr/bin/env python</code></pre>
                     <p>This line indicates to the computer that this is a python program, and it should look in this location to execute. Similar shebangs may look like:</p>
                     <pre><code>#!/usr/bin/python
 #!/bin/bash
@@ -678,9 +677,9 @@ etc.</code></pre>
                 <section>
                     <h3>A basic program</h3>
                     <p>Once you've included the shebang, you can get right to it. Start typing lines just as you would in the interpreter, and once you execute your program, each line will resolve itself in order.</p>
-                    <pre><code>#!/usr/bin/env python3
+                    <pre><code>#!/usr/bin/env python
 
-print("hello world")</code></pre>
+print "hello world"</code></pre>
                     <p>Type this into a text file, and save it as whatever, and include <code>.py</code> at the end for your own convenience.</p>
                     <p>To execute this program, just type at the terminal:</p>
                     <pre><code>$ python file.py</code></pre>
@@ -708,14 +707,14 @@ if __name__ == '__main__':
                 <!--level 7-->
                 <section>
                     <p>To extend the previous trivial example:</p>
-                    <pre><code>#!/usr/bin/env python3
+                    <pre><code>#!/usr/bin/env python
 
 # no modules were required, so none were imported
 
 # no functions were needed, so none were created
 
 def main():
-    print("hello world")
+    print "hello world"
 
 if __name__ == '__main__':
     main()</code></pre>
@@ -726,7 +725,7 @@ if __name__ == '__main__':
                     <h3>What are Functions?</h3>
                     <p>Functions are typically used when you have repetitive code. Instead of pasting the code over and over, just put it in a function, and use ("call") it when needed. For example:</p>
                     <pre><code>def do_thing():
-    print("hello world")
+    print "hello world"
     return</code></pre>
                     <p>Then to reference it, just type elsewhere in your program:</p>
                     <pre><code>do_thing()</code></pre>
@@ -737,7 +736,7 @@ if __name__ == '__main__':
                 <section>
                     <p>You can also make functions take arguments:</p>
                     <pre><code>def do_thing(phrase):
-    print(phrase)
+    print phrase
     return
 
 ...
@@ -751,7 +750,7 @@ do_thing(phrase)</code></pre>
                     <p>You can also assign values to variables with functions. To do this, make use of the <code>return</code> keyword. Note that previously, it has been naked, which means nothing is returned. Python is smart enough to know what you mean if you omit <code>return</code>, but it's always nice to include it for consistency.</p>
                     <p>To extend the previous example:</p>
                     <pre><code>def do_thing(phrase):
-    print(phrase)
+    print phrase
 
     new_phrase = "goodbye world"
 
@@ -762,17 +761,17 @@ do_thing(phrase)</code></pre>
 phrase = "hello world"
 
 phrase2 = do_thing(phrase)
-print(phrase2)</code></pre>
+print phrase2</code></pre>
                 </section>
 
                 <!--level 11-->
                 <section>
                     <p>Putting it all together:</p>
-                    <pre><code>#!/usr/bin/env python3
+                    <pre><code>#!/usr/bin/env python
 
 def do_thing(phrase):
     """Transform the input phrase into a new phrase."""
-    print(phrase)
+    print phrase
     new_phrase = "goodbye world"
 
     return new_phrase
@@ -781,7 +780,7 @@ def main():
     phrase = "hello world"
     phrase2 = do_thing(phrase)
 
-    print(phrase2)
+    print phrase2
 
 if __name__ == '__main__':
     main()</code></pre>
@@ -791,7 +790,7 @@ if __name__ == '__main__':
             <!--slide 11 stack-->
 	    <section>
 	        <h2>Final Thoughts: Compatibility</h2>
-	        <p>Today's course was taught on 3.7.4.</p>
+	        <p>Today's course was taught on 2.7.12.</p>
 	        <p>We have many versions of Python available, and not all are created equal. Most distinct is the difference between 2.x and 3.x; there are several syntax changes that will be required to use version 3.x.</p>
 		<p>For more information, look at this trusty <a href= "http://python-future.org/compatible_idioms.html">2.x to 3.x compatibility cheat sheet</a>.</p>
 	    </section>
