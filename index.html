@@ -168,21 +168,21 @@ $</code></pre>
                 <section>
                     <h3>Why virtual environment?</h3>
                     <p>Python has modules. if you want to install your own, you need a virtual environment.</p>
-                    <p>The version on O2 has a certain number of builtin modules; the <code>--system-site-packages</code> flag allows your virtual environment to inherit those packages so you don't have to reinstall them yourself.</p>
+                    <p>The version on O2 has a certain number of builtin modules; the <code>--system-site-packages</code> flag allows your virtual environment to inherit those packages so you don't have to reinstall them yourself, if you're using python modules that are older than 3.7.4.</p>
                     <p>For more information, you can visit our <a href="https://wiki.rc.hms.harvard.edu/display/O2/Personal+Python+Packages" target="_blank">Personal Python Packages wiki page</a>.</p>
                 </section>
 
                 <!--level 7-->
                 <section>
                     <h3>Installing Python modules</h3>
-                    <p>To install modules, generally use <code>pip</code> or <code>easy-install</code> (we recommend <code>pip</code>): <pre><code>(nameofenv)$ pip install packagename</code></pre>If that doesn't work (e.g. you've downloaded the archive manually), follow the instructions in the provided README file, but it'll go something like <pre><code>(nameofenv)$ python setup.py install</code></pre> (some will have you use <code>build</code> before <code>install</code>). Make sure you read the (hopefully provided) instructions when installing modules manually.</p>
+                    <p>To install modules, generally use <code>pip3</code> or <code>easy-install</code> (we recommend <code>pip3</code>): <pre><code>(nameofenv)$ pip3 install packagename</code></pre>If that doesn't work (e.g. you've downloaded the archive manually), follow the instructions in the provided README file, but it'll go something like <pre><code>(nameofenv)$ python3 setup.py install</code></pre> (some will have you use <code>build</code> before <code>install</code>). Make sure you read the (hopefully provided) instructions when installing modules manually.</p>
                 </section>
 
                 <!--level 8-->
                 <section>
                     <h3>Viewing modules</h3>
-                    <p>to see which external modules have been installed/compatible with the package installer (<code>pip</code>):</p>
-                    <pre><code>$ pip freeze
+                    <p>to see which external modules have been installed/compatible with the package installer (<code>pip3</code>):</p>
+                    <pre><code>$ pip3 freeze
 bx-python==0.7.3
 cycler==0.10.0
 funcsigs==1.0.2
@@ -262,7 +262,7 @@ True</code></pre>
                 <p>Sometimes, you'll need to escape (backslash) certain special characters to get them to display correctly when printing. For example, if you want to preserve double quotations in your string:</p>
                 <pre><code>>>> print(""hello world"")
   File "<stdin>", line 1
-    print ""hello world""
+    print(""hello world"")
                 ^
 SyntaxError: invalid syntax
 >>> print("\"hello world\"")
