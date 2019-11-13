@@ -132,32 +132,32 @@ $ module spider python
 		<!--level 4-->
 		<section>
 		    <h3>Accessing Python on O2 cont'd.</h3>
-		    <pre><code>$ module spider python/3.7.4
+		    <pre><code>$ module spider python/3.6.0
 (snip)
-You will need to load all module(s) on any one of the lines below before the "python/3.7.4" module is available to load.
+You will need to load all module(s) on any one of the lines below before the "python/3.6.0" module is available to load.
 
       gcc/6.2.0
 (snip)
 
-$ module load gcc/6.2.0 python/3.7.4
+$ module load gcc/6.2.0 python/3.6.0
 
 $ which python
-/n/app/python/3.7.4/bin/python
+/n/app/python/3.6.0/bin/python
 
 $ python3
-Python 3.7.4 (default, Sep 11 2019, 11:24:51)
+Python 3.6.0 (default, May  2 2018, 17:23:32)
 [GCC 6.2.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 >>></code></pre>
-                <p>Today's course will use 3.7.4. (To exit the interpreter, type ctrl+D, <code>exit()</code>, or <code>quit()</code>.)</p>
+                <p>Today's course will use 3.6.0. (To exit the interpreter, type ctrl+D, <code>exit()</code>, or <code>quit()</code>.)</p>
                 </section>
 
                 <!--level 5-->
                 <section>
                     <h3>Alternately, virtual environment:</h3>
-                    <pre><code>$ module load gcc/6.2.0 python/3.7.4
+                    <pre><code>$ module load gcc/6.2.0 python/3.6.0
 $ which virtualenv
-/n/app/python/3.7.4/bin/virtualenv
+/n/app/python/3.6.0/bin/virtualenv
 $ virtualenv nameofenv --system-site-packages
 New python executable in nameofenv/bin/python
 Installing setuptools, pip, wheel...done.
@@ -204,7 +204,7 @@ matplotlib==1.5.3
                     <pre><code>$ python3 -c "help('modules')"</code></pre>
                     <p>and</p>
                     <pre><code>$ python3
-Python 3.7.4 (default, Sep 11 2019, 11:24:51)
+Python 3.6.0 (default, May  2 2018, 17:23:32)
 [GCC 6.2.0] on linux2
 Type "help", "copyright", "credits" or "license" for more information.
 >>> help('modules')</code></pre>
@@ -796,7 +796,7 @@ if __name__ == '__main__':
             <!--slide 11 stack-->
 	    <section>
 	        <h2>Final Thoughts: Compatibility</h2>
-	        <p>Today's course was taught on 3.7.4.</p>
+	        <p>Today's course was taught on 3.6.0.</p>
 	        <p>There are many versions of Python available, and not all are created equal. Most distinct is the difference between 2.x and 3.x; there are several syntax changes that will be required to use version 3.x.</p>
 		<p>For more information, look at this trusty <a href= "http://python-future.org/compatible_idioms.html">2.x to 3.x compatibility cheat sheet</a>.</p>
 	    </section>
