@@ -374,16 +374,16 @@ TypeError: 'str' object does not support item assignment</code></pre>
                     <p>Sets are lists that do not allow duplicates. Sets are useful if you need to take unions, intersections, etc. To generate sets:</p>
                     <pre><code>>>> st = set(lst)
 >>> st
-set(['a', 'c', 'b'])
+{'a', 'c', 'b'}
 
 >>> lst3 = [1, 1, 2, 3, 4, 4]
 >>> st2 = set(lst3)
 >>> st2
-set([1, 2, 3, 4])
+{1, 2, 3, 4}
 
 >>> st3 = {1, 2, 3}
 >>> st3
-set([1, 2, 3])</code></pre>
+{1, 2, 3}</code></pre>
                 </section>
 
                 <!--level 7-->
@@ -393,17 +393,17 @@ set([1, 2, 3])</code></pre>
                     <pre><code>>>> set1 = {1, 2, 3}
 >>> set2 = {3, 4, 5}
 >>> set1 | set2        # union
-set([1, 2, 3, 4, 5])
+{1, 2, 3, 4, 5}
 >>> set1 & set2        # intersection
-set([3])
+{3}
 >>> set1 - set2        # set difference
-set([1, 2])
+{1, 2}
 >>> set2 - set1
-set([4, 5])
+{4, 5}
 >>> set1 ^ set2        # symmetric difference
-set([1, 2, 4, 5])
+{1, 2, 4, 5}
 >>> set2 ^ set1
-set([1, 2, 4, 5])</code></pre>
+{1, 2, 4, 5}</code></pre>
                 <p>More information can be found in the <a href="https://docs.python.org/2/library/sets.html" target="_blank">documentation</a>.</p>
                 </section>
 
